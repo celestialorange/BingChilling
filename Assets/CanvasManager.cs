@@ -9,6 +9,7 @@ public class CanvasManager : MonoBehaviour
     public GameObject HealthBar;
     public GameManager gameManager;
     public GameObject RestartButton;
+    public string thisLevel;
     // Start is called before the first frame update
     void Start()
     {
@@ -35,7 +36,7 @@ public class CanvasManager : MonoBehaviour
 
     void OnRestartButtonClick()
     {
-        SceneManager.LoadScene("Level");
+        SceneManager.LoadScene(thisLevel);
         PlayerPrefs.SetInt("IceCreamCollected", 0);
     }
 }
