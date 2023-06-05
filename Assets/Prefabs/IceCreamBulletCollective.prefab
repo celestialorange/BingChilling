@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 3376129987510764418}
   - component: {fileID: 8740679101646611556}
-  - component: {fileID: 6178870411584393448}
   - component: {fileID: 1285405776337532834}
   - component: {fileID: 8617578291517804376}
   m_Layer: 0
@@ -87,21 +86,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &6178870411584393448
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 671684109151441286}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: de98a6a717d3b42d1b74578905168749, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  player: {fileID: 0}
-  speed: 0
-  bossHand: {fileID: 0}
 --- !u!58 &1285405776337532834
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -131,12 +115,12 @@ CircleCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.49999997
+  m_Radius: 0.22592092
 --- !u!50 &8617578291517804376
 Rigidbody2D:
   serializedVersion: 4
@@ -163,7 +147,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!1 &2958148166143669355
 GameObject:
   m_ObjectHideFlags: 0
@@ -196,7 +180,7 @@ Transform:
   m_Children:
   - {fileID: 3376129987510764418}
   m_Father: {fileID: 0}
-  m_RootOrder: 12
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!58 &2346389927181857532
 CircleCollider2D:

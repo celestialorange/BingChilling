@@ -9,19 +9,25 @@ public class IceCreamCollective : MonoBehaviour
     void Start()
     {
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        Invoke("DestroySelf", 6f);
     }
 
     // Update is called once per frame
     void Update()
     {
-
+        
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("Player"))
+        if (collision.CompareTag("Player"))
         {
             Destroy(gameObject);
             gameManager.IceCreamBulletCount += 1;
         }
+    }
+
+    void DestroySelf()
+    {
+        Destroy(gameObject);
     }
 }

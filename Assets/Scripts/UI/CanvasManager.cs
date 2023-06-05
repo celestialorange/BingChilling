@@ -16,6 +16,8 @@ public class CanvasManager : MonoBehaviour
     public NewPlayerControl playerControl;
     public GameObject BossHandHealth;
     public BossHand bossHand;
+    //public IceCreamSpawn iceCreamSpawn;
+    public IceCreamCount iceCreamCount;
 
     // Start is called before the first frame update
     void Start()
@@ -61,8 +63,10 @@ public class CanvasManager : MonoBehaviour
         if (gameManager.isBulletIceCreamCreated)
         {
             BossHandHealth.SetActive(true);
+            iceCreamCount.ShouldIceCreamCountEnabled = true;
             BossHandHealth.GetComponent<Image>().fillAmount = bossHand.health / bossHand.defaultHealth;
         }
+    
     }
 
     void OnRestartButtonClick()

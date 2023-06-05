@@ -21,9 +21,9 @@ public class IceCreamCount : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(gameManager.isBulletIceCreamCreated)
+        if(ShouldIceCreamCountEnabled)
         {
-            gameObject.SetActive(true);
+            this.gameObject.SetActive(true);
         }
         if(gameManager.IceCreamBulletCount >= 1)
         {

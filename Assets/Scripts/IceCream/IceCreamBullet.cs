@@ -11,6 +11,7 @@ public class IceCreamBullet : MonoBehaviour
     void Start()
     {
         bossHand = GameObject.Find("BossHand").GetComponent<BossHand>();
+        player = GameObject.FindGameObjectWithTag("Player").transform;
     }
     // Update is called once per frame
     void Update()

@@ -29,11 +29,11 @@ public class IceCreamSpawn : MonoBehaviour
     }
 
 
-   public IEnumerator SpawnIceCream(float spawnTime)
+   IEnumerator SpawnIceCream()
     {
         while (ShouldSpawn)
         {
-            yield return new WaitForSeconds(spawnTime);
+            yield return new WaitForSeconds(0.5f);
             Instantiate(IceCreamCollective, new Vector3(Random.Range(-2 + SpawnPoint.transform.position.x, 2 + SpawnPoint.transform.position.x), SpawnPoint.transform.position.y, 0), Quaternion.identity);
         }
     }
@@ -51,7 +51,7 @@ public class IceCreamSpawn : MonoBehaviour
     public void IceCreamSpawnNow()
     {
        
-           StartCoroutine(SpawnIceCream(0.1f));
+           StartCoroutine(SpawnIceCream());
            ShouldSpawn = true;
             //SpawnCoroutineCreated = true;
         

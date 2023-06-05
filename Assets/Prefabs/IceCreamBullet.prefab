@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 6178870411584393448}
   - component: {fileID: 1285405776337532834}
   - component: {fileID: 8617578291517804376}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: IceCream
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -175,7 +175,7 @@ GameObject:
   - component: {fileID: 64402318247780155}
   - component: {fileID: 2346389927181857532}
   - component: {fileID: -3338709321272577822}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: IceCreamBullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
