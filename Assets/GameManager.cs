@@ -21,9 +21,9 @@ public class GameManager : MonoBehaviour
     /// <summary>
     /// 调节陷阱相关
     /// </summary>
-    public int FreeFromTrapMaxAmount;
-    public int FreeFromTrapSpeed;
-    public int FreeFromTrapCurrentAmount;
+    public float FreeFromTrapMaxAmount;
+    public float FreeFromTrapSpeed;
+    public float FreeFromTrapCurrentAmount;
     public int IceCreamBulletCount;
 
     //存档点相关
@@ -58,6 +58,11 @@ public class GameManager : MonoBehaviour
         if (IceCreamEnabled)
         {
             IceCreamRemaining -= IceCreamMeltSpeed * Time.deltaTime;
+        }
+
+        if(IceCreamBulletCount >= 3)
+        {
+            IceCreamBulletCount = 3;
         }
 
         if (IceCreamRemaining <= 0)

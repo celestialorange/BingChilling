@@ -5,6 +5,7 @@ using UnityEngine;
 public class IceCreamCollective : MonoBehaviour
 {
     public GameManager gameManager;
+
     // Start is called before the first frame update
     void Start()
     {

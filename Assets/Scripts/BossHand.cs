@@ -4,9 +4,12 @@ using UnityEngine;
 
 public class BossHand : MonoBehaviour
 {
-    public int health;
-    public int defaultHealth;
+    public float health;
+    public float defaultHealth;
     public bool isInvincible;
+    public float damageAmount;
+    public float currentHealth;
+   
     // Start is called before the first frame update
     void Start()
     {
@@ -22,6 +25,7 @@ public class BossHand : MonoBehaviour
         {
             Destroy(gameObject);
         }
+        currentHealth = health;
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -30,9 +34,20 @@ public class BossHand : MonoBehaviour
         {
             isInvincible = false;
         }
-        if (collision.gameObject.CompareTag("Bullet") && !isInvincible)
+        if (collision.gameObject.CompareTag("Bullet"))
         {
-            health -= 5;
+            health -= damageAmount;
         }
+        
     }
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+       
+        if (collision.gameObject.CompareTag("Bullet"))
+        {
+            health -= damageAmount;
+        }
+
+    }
+
 }

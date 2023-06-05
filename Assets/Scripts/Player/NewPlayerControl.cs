@@ -38,6 +38,7 @@ public class NewPlayerControl : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         jumpCount = maxJumpCount;
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        FirePos = transform.GetChild(1);
     }
 
     void Update()
@@ -46,14 +47,14 @@ public class NewPlayerControl : MonoBehaviour
         {
             MovePlayer();
         }
-        if(Input.GetButtonDown("Fire1") && gameManager.IceCreamBulletCount > 0 && CouldFireIceCreamBullets)
+        if(Input.GetButtonDown("Fire1") && gameManager.IceCreamBulletCount >= 1 && CouldFireIceCreamBullets)
         {
             Fire();
         }
 
-        if (CouldFireIceCreamBullets)
+        if (gameManager.isBulletIceCreamCreated)
         {
-
+            CouldFireIceCreamBullets = true;
         }
     }
 
@@ -146,5 +147,6 @@ public class NewPlayerControl : MonoBehaviour
     void Fire()
     {
         Instantiate(IceCreamBullet, FirePos.position, Quaternion.identity);
+        gameManager.IceCreamBulletCount -= 1;
     }
 }

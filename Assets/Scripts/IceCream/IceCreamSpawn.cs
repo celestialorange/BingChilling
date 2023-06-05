@@ -33,8 +33,8 @@ public class IceCreamSpawn : MonoBehaviour
     {
         while (ShouldSpawn)
         {
-            yield return new WaitForSeconds(0.5f);
-            Instantiate(IceCreamCollective, new Vector3(Random.Range(-2 + SpawnPoint.transform.position.x, 2 + SpawnPoint.transform.position.x), SpawnPoint.transform.position.y, 0), Quaternion.identity);
+            yield return new WaitForSeconds(0.1f);
+            Instantiate(IceCreamCollective, new Vector3(Random.Range(-6 + SpawnPoint.transform.position.x, 6 + SpawnPoint.transform.position.x), SpawnPoint.transform.position.y, 0), Quaternion.identity);
         }
     }
 
