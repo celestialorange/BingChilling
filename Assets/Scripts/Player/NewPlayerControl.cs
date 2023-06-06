@@ -17,7 +17,7 @@ public class NewPlayerControl : MonoBehaviour
     public int maxJumpCount = 2;
 
     private Rigidbody2D rb;
-    private bool isJumping;
+   [SerializeField]   private bool isJumping;
     public int jumpCount;
 
     //Animations
@@ -47,7 +47,7 @@ public class NewPlayerControl : MonoBehaviour
         {
             MovePlayer();
         }
-        if(Input.GetButtonDown("Fire1") && gameManager.IceCreamBulletCount >= 1 && CouldFireIceCreamBullets)
+        if (Input.GetButtonDown("Fire1") && gameManager.IceCreamBulletCount >= 1 && CouldFireIceCreamBullets)
         {
             Fire();
         }
@@ -58,6 +58,8 @@ public class NewPlayerControl : MonoBehaviour
         }
     }
 
+
+
     void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.contacts[0].normal.y > 0.7f)
@@ -65,6 +67,7 @@ public class NewPlayerControl : MonoBehaviour
             isJumping = false;
             jumpCount = maxJumpCount;
         }
+
     }
 
     void Jump()
@@ -79,6 +82,7 @@ public class NewPlayerControl : MonoBehaviour
         //Jump Controls
         float moveInput = Input.GetAxis("Horizontal");
         rb.velocity = new Vector2(moveInput * speed, rb.velocity.y);
+        Debug.Log(rb.velocity);
 
         if (Input.GetButtonDown("Jump"))
         {
@@ -117,19 +121,19 @@ public class NewPlayerControl : MonoBehaviour
             {
                 transform.localScale = new Vector3(1, 1, 0);
             }
-            if (rb.velocity.y > 0)
+            if (rb.velocity.y > 0.01f)
             {
                 animator.SetBool("IsPlayerRun", false);
                 animator.SetBool("IsPlayerJump", true);
                 animator.SetBool("IsPlayerJumpDown", false);
             }
-            if (rb.velocity.y < 0)
+            else if (rb.velocity.y < -0.01f)
             {
                 animator.SetBool("IsPlayerRun", false);
                 animator.SetBool("IsPlayerJump", false);
                 animator.SetBool("IsPlayerJumpDown", true);
             }
-            if (rb.velocity.y == 0)
+            else
             {
                 animator.SetBool("IsPlayerJump", false);
                 animator.SetBool("IsPlayerJumpDown", false);
