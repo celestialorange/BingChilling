@@ -8,6 +8,9 @@ public class Level2Intro : MonoBehaviour
     public CinemachineVirtualCamera playerCamera;
     public GameObject FollowObject;
     public RespawnManager respawnManager;
+    public GameObject player;
+
+    public FollowUp followUp;
     // Start is called before the first frame update
     void Start()
     {
@@ -22,12 +25,13 @@ public class Level2Intro : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("Player"))
+        if (collision.gameObject.CompareTag("Player") && player.transform.position.x > gameObject.transform.position.x)
         {
-            FollowObject.GetComponent<FollowUp>().isYaxisShouldMove = true;
+            followUp.isYaxisShouldMove = true;
             playerCamera.Follow = FollowObject.transform;
             respawnManager.PlayerTouchedRespawnPoint(gameObject.transform);
             gameObject.GetComponent<Collider2D>().isTrigger = false;
+            //followUp.currentPosition.position = player.transform.position;
         }
     }
 }

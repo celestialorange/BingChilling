@@ -38,7 +38,11 @@ public class CarMove : MonoBehaviour
                 //rb2d.velocity = Vector2.right * speed * Time.deltaTime;
                 StartCoroutine(LateMove());
             }
-            else rb2d.velocity = Vector2.left * speed * Time.deltaTime;
+            else
+            {
+                rb2d.velocity = Vector2.left * speed * Time.deltaTime;
+                Invoke("DestroySelf", 3f);
+            }
 
             //transform.Translate(Vector2.left * speed * Time.deltaTime, Space.World);
         }
@@ -102,5 +106,10 @@ public class CarMove : MonoBehaviour
             rb2d.velocity = Vector2.right * speed * Time.deltaTime;
         }
        
+    }
+
+    void DestroySelf()
+    {
+        Destroy(gameObject);
     }
 }

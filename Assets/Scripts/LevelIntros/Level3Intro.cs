@@ -29,7 +29,10 @@ public class Level3Intro : MonoBehaviour
     }
     private void OnTriggerExit2D(Collider2D collision)
     {
-        gameObject.GetComponent<Collider2D>().isTrigger = false;
-        respawnManager.PlayerTouchedRespawnPoint(gameObject.transform);
+        if(collision.gameObject == player && player.transform.position.x > gameObject.transform.position.x)
+        {
+            gameObject.GetComponent<Collider2D>().isTrigger = false;
+            respawnManager.PlayerTouchedRespawnPoint(gameObject.transform);
+        }
     }
 }

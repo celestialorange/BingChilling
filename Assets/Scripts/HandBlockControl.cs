@@ -5,15 +5,16 @@ using UnityEngine;
 public class HandBlockControl : MonoBehaviour
 {
     public IceCreamSpawn iceCreamSpawn;
+    public Color defaultColor;
     // Start is called before the first frame update
     void Start()
     {
-
+        defaultColor = gameObject.GetComponent<SpriteRenderer>().color;
     }
     // Update is called once per frame
     void Update()
     {
-
+        
     }
 
     void OnTriggerExit2D(Collider2D other)
@@ -21,6 +22,7 @@ public class HandBlockControl : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             gameObject.GetComponent<BoxCollider2D>().isTrigger = false;
+            gameObject.GetComponent<SpriteRenderer>().color = new Color(defaultColor.r, defaultColor.g, defaultColor.b, 1.0f);
         }
     }
     void OnCollisionEnter2D(Collision2D collision2D)

@@ -1,128 +1,89 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Animations;
+
 
 public class PlayerControl : MonoBehaviour
 {
+    private Rigidbody2D rb;
+    private Collider2D col2d;
+    private Animator anim;
 
-    public Animator animator;
-    //HorizontalMoveControl
-      public float speed;
-      public Rigidbody2D rb;
-      public float xVelocity;
+    public float speed, jumpForce;
+    public Transform groundCheck;
+    public LayerMask ground;
 
-    public void GroundMovement()
+    public bool isGround, isJump;
+
+    bool jumpPressed;
+    int jumpCount;
+
+    void Start()
     {
-        xVelocity = Input.GetAxisRaw("Horizontal"); //ʹ��GetAxisRawʵ�־�ȷ���ƣ�GetAxis����ֽ�ɫ�޷�����ֹͣ������
-        rb.velocity = new Vector2(xVelocity * speed, rb.velocity.y);
-        if (Input.GetButtonDown("Horizontal"))
-        {
-            if (xVelocity < 0)
-            {
-                transform.localScale = new Vector3(-1, 1, 0);
-                
-            }
-            if (xVelocity > 0)
-            {
-                transform.localScale = new Vector3(1, 1, 0);
-            }
-        }
-        if (Input.GetButton("Horizontal") && !Input.GetButton("Jump"))
-        {
-            animator.SetBool("IsPlayerRun", true);
-        }
-        else animator.SetBool("IsPlayerRun", false);
-    }
-            //JumpControl
-            public float jumpForce;
-            public float fallMultiplier;
-            public float lowJumpMultiplier;
-            public bool pressJump;
-            public int jumpNum;
-            public int jumpRemainNum;
-    public bool isOnGround;
-    public float groundDistance = 0.2f;
-    public float footOffset = 0.4f;
-    public float rayPozitionY = -0.5f;
-    public LayerMask groundLayer;
-
-   //�Խ�ɫ�������ƶ����������ж�
-    RaycastHit2D Raycast(Vector2 offset, Vector2 rayDirection, float length, LayerMask layer)
-    {
-        Vector2 pos = transform.position;
-        RaycastHit2D hit = Physics2D.Raycast(pos + offset, rayDirection, length, layer);
-        Color color = hit ? Color.red : Color.green;
-        Debug.DrawRay(pos + offset, rayDirection * length, color);
-        return hit;
+        rb = GetComponent<Rigidbody2D>();
+        col2d = GetComponent<Collider2D>();
+        anim = GetComponent<Animator>();
     }
 
-    void PhysicsCheck()
+    void Update()
     {
-        RaycastHit2D leftCheck = Raycast(new Vector2(-footOffset, rayPozitionY), Vector2.down, groundDistance, groundLayer);
-        RaycastHit2D rightCheck = Raycast(new Vector2(footOffset, rayPozitionY), Vector2.down, groundDistance, groundLayer);
-        if(leftCheck || rightCheck)
+        if (Input.GetButtonDown("Jump") && jumpCount > 0)
         {
-            isOnGround = true;
+            jumpPressed = true;
         }
-        else isOnGround = false;
+    }
+
+    void FixedUpdate()
+    {
+        isGround = Physics2D.OverlapCircle(groundCheck.position, 0.1f, ground);
+        GroundMovement();
+        Jump();
+    }
+
+    void GroundMovement()
+    {
+        float horizontalMove = Input.GetAxisRaw("Horizontal");
+        rb.velocity = new Vector2(horizontalMove * speed, rb.velocity.y);
+
+        if(horizontalMove != 0)
+        {
+            transform.localScale = new Vector3(horizontalMove, 1, 1);
+        }
     }
 
     void Jump()
     {
-        if (Input.GetButtonDown("Jump")) 
+        if (isGround)
         {
-            if (isOnGround)
-            {
-                jumpRemainNum = jumpNum;
-            }
-            if (pressJump && jumpRemainNum-- > 0)
-            {
-                rb.velocity = new Vector2(rb.velocity.x, jumpForce);
-            }
+            jumpCount = 2;
+            isJump = false;
         }
-        if(rb.velocity.y < 0)
+        if(jumpPressed && isGround)
         {
-            rb.velocity += Vector2.up * Physics2D.gravity.y * fallMultiplier * Time.deltaTime;
-            animator.SetBool("IsPlayerJump", true);
+            isJump = true;
+            rb.velocity = new Vector2(rb.velocity.x, jumpForce);
+            jumpCount--;
+            jumpPressed = false;
         }
-        else if (rb.velocity.y > 0 && !pressJump) 
+        else if (jumpPressed && jumpCount > 0 && !isGround)
         {
-            rb.velocity += Vector2.up * Physics2D.gravity.y * lowJumpMultiplier * Time.deltaTime;
-            animator.SetBool("IsPlayerJump", false);
-            animator.SetBool("IsPlayerJumpDown", true);
+            rb.velocity = new Vector2(rb.velocity.x, jumpForce);
+            jumpCount--;
+            jumpPressed = false;
         }
-        else if(rb.velocity.y == 0 && !pressJump)
+
+        /*else if (jumpPressed && !isGround){
+         * 
+         * }*/
+        void SwitchAnim()
         {
-            animator.SetBool("IsPlayerJump", false);
-            animator.SetBool("IsPlayerJumpDown", false);
+
         }
     }
 
+}
 
-    //Main Event
-    void Start()
-        {
-            rb = gameObject.GetComponent<Rigidbody2D>();
-            animator = gameObject.GetComponent<Animator>();
-        }
 
-        // Update is called once per frame
-        void Update()
-        {
-        pressJump = Input.GetButton("Jump");
-        Jump();
-    }
-
-        void FixedUpdate()
-        {
-        PhysicsCheck();
-        GroundMovement();
-        
-        /*Vector2 velocity = rb.velocity;
-        velocity.x = speed;
-        rb.velocity = velocity;*/
-    }
-
-    }
+    
+ 
 

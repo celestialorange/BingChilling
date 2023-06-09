@@ -17,7 +17,7 @@ public class FollowUp : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
 
         if (!isYaxisShouldMove)
@@ -30,7 +30,7 @@ public class FollowUp : MonoBehaviour
             gameObject.transform.position = new Vector3(player.transform.position.x, currentPosition.position.y + moveSpeed * Time.deltaTime);
         }
 
-        if(player.transform.position.y < gameObject.transform.position.y - 9)
+        if(player.transform.position.y < gameObject.transform.position.y - 15)
         {
             player.SetActive(false);
             gameManager.IsPlayerDead = true;

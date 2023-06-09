@@ -82,7 +82,7 @@ public class NewPlayerControl : MonoBehaviour
         //Jump Controls
         float moveInput = Input.GetAxis("Horizontal");
         rb.velocity = new Vector2(moveInput * speed, rb.velocity.y);
-        Debug.Log(rb.velocity);
+        //Debug.Log(rb.velocity);
 
         if (Input.GetButtonDown("Jump"))
         {
