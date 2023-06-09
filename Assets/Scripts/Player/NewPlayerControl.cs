@@ -12,7 +12,9 @@ public class NewPlayerControl : MonoBehaviour
     public GameObject fallAnchor;
 
     //Motion Controls
+    //public bool isPlayerMove;
     public float speed = 5f;
+    public float speedScale = 1f;
     public float jumpForce = 5f;
     public int maxJumpCount = 2;
 
@@ -58,6 +60,7 @@ public class NewPlayerControl : MonoBehaviour
         }
     }
 
+ 
 
 
     void OnCollisionEnter2D(Collision2D collision)
@@ -81,7 +84,7 @@ public class NewPlayerControl : MonoBehaviour
     {
         //Jump Controls
         float moveInput = Input.GetAxis("Horizontal");
-        rb.velocity = new Vector2(moveInput * speed, rb.velocity.y);
+        rb.velocity = new Vector2(moveInput * speed * speedScale, rb.velocity.y);
         //Debug.Log(rb.velocity);
 
         if (Input.GetButtonDown("Jump"))

@@ -67,13 +67,13 @@ public class GameManager : MonoBehaviour
             IceCreamBulletCount = 3;
         }
 
-        if (IceCreamRemaining <= 0)
+        if (IceCreamRemaining <= 0 && !IsPlayerDead)
         {
             CommonDead();
         }
-        if (IsPlayerGotLaoGanMa)
+        if (IsPlayerGotLaoGanMa )
         {
-            playerControl.speed *= 2;
+            playerControl.speedScale = 1.5f;
         }
         if (playerControl.isPlayerTrapped && Input.GetButtonDown("Horizontal"))
         {
