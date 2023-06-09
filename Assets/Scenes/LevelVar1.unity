@@ -4342,8 +4342,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 634281483}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 390, y: 86.14, z: 0}
-  m_LocalScale: {x: -2.5, y: 5, z: 1}
+  m_LocalPosition: {x: 390, y: 87.5, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2116351206}
@@ -5699,6 +5699,7 @@ MonoBehaviour:
   FreeFromTrapSpeed: 5
   FreeFromTrapCurrentAmount: 0
   IceCreamBulletCount: 0
+  soundFXManager: {fileID: 300109633}
   Checkpoints: []
   CheckpointStatus: 0
   isBulletIceCreamCreated: 0
@@ -10615,8 +10616,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1690501368}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 368, y: 86.14, z: 0}
-  m_LocalScale: {x: -2.5, y: 5, z: 1}
+  m_LocalPosition: {x: 368, y: 87.5, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2116351206}
@@ -10883,7 +10884,6 @@ GameObject:
   - component: {fileID: 1743497478}
   - component: {fileID: 1743497479}
   - component: {fileID: 1743497480}
-  - component: {fileID: 1743497481}
   m_Layer: 3
   m_Name: BossHand
   m_TagString: Hand
@@ -10932,7 +10932,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
+  m_Sprite: {fileID: 1212169105, guid: 15a854fefbc815c409ea32962cbfbedd, type: 3}
   m_Color: {r: 1, g: 0.75156665, b: 0.3254717, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -10951,8 +10951,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1743497475}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 390, y: 86.14, z: 0}
-  m_LocalScale: {x: -2.5, y: 5, z: 1}
+  m_LocalPosition: {x: 390.7574, y: 87.5, z: 0}
+  m_LocalScale: {x: -12, y: 12, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2116351206}
@@ -10990,18 +10990,18 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0, y: -0.03}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 1}
+    oldSize: {x: 0.28, y: 0.56}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.3, y: 0.5}
   m_EdgeRadius: 0
 --- !u!114 &1743497479
 MonoBehaviour:
@@ -11022,6 +11022,8 @@ MonoBehaviour:
   currentHealth: 0
   targetPosition: {fileID: 1690501369}
   originPosition: {fileID: 634281484}
+  moveSpeed: 30
+  rotateSpeed: 5
   attackWaitTime: 3
 --- !u!50 &1743497480
 Rigidbody2D:
@@ -11050,51 +11052,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 7
---- !u!61 &1743497481
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1743497475}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_ForceSendLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ForceReceiveLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ContactCaptureLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_CallbackLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 1}
-    newSize: {x: 1, y: 1}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1}
-  m_EdgeRadius: 0
 --- !u!1001 &1748917805
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -59641,8 +59598,8 @@ GameObject:
   m_Component:
   - component: {fileID: 2111569484}
   - component: {fileID: 2111569483}
-  - component: {fileID: 2111569485}
   - component: {fileID: 2111569486}
+  - component: {fileID: 2111569487}
   m_Layer: 3
   m_Name: Hand
   m_TagString: Untagged
@@ -59691,8 +59648,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 1, g: 0.8018868, b: 0.504717, a: 0.23529412}
+  m_Sprite: {fileID: 1212169105, guid: 15a854fefbc815c409ea32962cbfbedd, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -59710,14 +59667,29 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2111569481}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 39.600002, y: 1.52, z: 0}
-  m_LocalScale: {x: 2, y: 4, z: 1}
+  m_LocalPosition: {x: 39.600002, y: 2.17, z: 0}
+  m_LocalScale: {x: 8, y: 8, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2116351206}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!61 &2111569485
+--- !u!114 &2111569486
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2111569481}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c4e8700f1a86104194217803a884fdd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  iceCreamSpawn: {fileID: 0}
+  defaultColor: {r: 0, g: 0, b: 0, a: 0}
+  player: {fileID: 1863823205}
+--- !u!61 &2111569487
 BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -59753,29 +59725,15 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 1}
+    oldSize: {x: 0.28, y: 0.56}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.28, y: 0.56}
   m_EdgeRadius: 0
---- !u!114 &2111569486
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2111569481}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8c4e8700f1a86104194217803a884fdd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  iceCreamSpawn: {fileID: 0}
-  defaultColor: {r: 0, g: 0, b: 0, a: 0}
 --- !u!1 &2116351205
 GameObject:
   m_ObjectHideFlags: 0

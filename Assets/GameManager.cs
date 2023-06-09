@@ -26,6 +26,8 @@ public class GameManager : MonoBehaviour
     public float FreeFromTrapCurrentAmount;
     public int IceCreamBulletCount;
 
+    public SoundFXManager soundFXManager;
+
     //存档点相关
     public List<Checkpoint> Checkpoints;
     public int CheckpointStatus;
@@ -67,9 +69,7 @@ public class GameManager : MonoBehaviour
 
         if (IceCreamRemaining <= 0)
         {
-            player.SetActive(false);
-            //Destroy(GameObject.Find("Player"));
-            IsPlayerDead = true;
+            CommonDead();
         }
         if (IsPlayerGotLaoGanMa)
         {
@@ -86,6 +86,24 @@ public class GameManager : MonoBehaviour
             }
         }
         
+    }
+
+   public IEnumerator IE_PlayerCrashed(float waitTime)
+    {
+        yield return new WaitForSeconds(waitTime);
+        CommonDead();
+    }
+
+    public void PlayerCrash(float waitTime)
+    {
+        StartCoroutine(IE_PlayerCrashed(waitTime));
+    }
+
+    public void CommonDead()
+    {
+        player.SetActive(false);
+        IsPlayerDead = true;
+        soundFXManager.PlaySound(SoundType.KO);
     }
 
     //void CheckpointDefenition()

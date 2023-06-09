@@ -104,8 +104,7 @@ public class NewPlayerControl : MonoBehaviour
         //Fall Detection
         if (gameObject.transform.position.y <= fallAnchor.transform.position.y)
         {
-            gameObject.SetActive(false);
-            gameManager.IsPlayerDead = true;
+            gameManager.CommonDead();
         }
 
         //Animation Control

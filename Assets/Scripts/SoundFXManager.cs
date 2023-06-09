@@ -2,6 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum SoundType
+{
+    KO
+}
+
 public class SoundFXManager : MonoBehaviour
 {
     public GameManager gameManager;
@@ -13,10 +18,17 @@ public class SoundFXManager : MonoBehaviour
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
     }
 
-    // Update is called once per frame
-    void Update()
+    public void PlaySound(SoundType soundType)
     {
-       
+        switch (soundType)
+        {
+            case SoundType.KO:
+                FXSource.clip = KOSound;
+                break;
+        }
+        FXSource.time = 0;
+        FXSource.Play();
+        Debug.Log("playsound+ " + soundType);
     }
 }
 

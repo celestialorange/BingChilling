@@ -19,6 +19,9 @@ public class CarMove : MonoBehaviour
     public CinemachineVirtualCamera playerCamera;
     public IceCreamCount iceCreamCount;
     public IceCreamSpawn iceCreamSpawn;
+
+    private bool isCarTrigger = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -36,7 +39,14 @@ public class CarMove : MonoBehaviour
             if (carDirection)
             {
                 //rb2d.velocity = Vector2.right * speed * Time.deltaTime;
-                StartCoroutine(LateMove());
+                if (!isCarTrigger)
+                {
+                    StartCoroutine(LateMove());
+                }
+                else
+                {
+                    rb2d.velocity = Vector2.right * speed * Time.deltaTime;
+                }
             }
             else
             {
@@ -70,7 +80,7 @@ public class CarMove : MonoBehaviour
                 player.transform.rotation = Quaternion.Euler(0, 0, 30f);
                 playerCamera.Follow = null;
                 ShouldCarMove = false;
-                StartCoroutine(DestroyPlayer());
+                gameManager.PlayerCrash(2.0f);
             }
             else
             {
@@ -85,27 +95,21 @@ public class CarMove : MonoBehaviour
             iceCreamSpawn.IceCreamSpawnNow();
             Destroy(gameObject);
         }
-        
-        IEnumerator DestroyPlayer()
-        {
-            yield return new WaitForSeconds(2.0f);
-            //Destroy(GameObject.Find("Player"));
-            GameObject.Find("Player").SetActive(false);
-            gameManager.IsPlayerDead = true;
-            
-        }
-        
+
     }
 
  IEnumerator LateMove()
     {
         yield return new WaitForSeconds(lateMoveTime);
-        while (ShouldCarMove)
-        {
-            yield return new WaitForSeconds(Time.deltaTime);
-            rb2d.velocity = Vector2.right * speed * Time.deltaTime;
-        }
-       
+        
+        isCarTrigger = true;
+
+        //while (ShouldCarMove)
+        //{
+        //    yield return new WaitForSeconds(Time.deltaTime);
+        //    rb2d.velocity = Vector2.right * speed * Time.deltaTime;
+        //}
+
     }
 
     void DestroySelf()

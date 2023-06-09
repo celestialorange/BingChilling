@@ -4,20 +4,28 @@ using UnityEngine;
 
 public class IceCreamBullet : MonoBehaviour
 {
-    public Transform player;
+    public float direction;
     public float speed;
-    public BossHand bossHand;
+    //public BossHand bossHand;
+
+    private bool isInit = false;
     // Start is called before the first frame update
     void Start()
     {
-        bossHand = GameObject.Find("BossHand").GetComponent<BossHand>();
-        player = GameObject.FindGameObjectWithTag("Player").transform;
+        //bossHand = GameObject.Find("BossHand").GetComponent<BossHand>();
+        direction = GameObject.FindGameObjectWithTag("Player").transform.localScale.x;
         Invoke("DestroySelf", 5f);
+
+        isInit = true;
     }
     // Update is called once per frame
     void Update()
     {
-        transform.Translate(new Vector3(player.localScale.x * speed * Time.deltaTime, 0), Space.World);
+        if (!isInit)
+        {
+            return;
+        }
+        transform.Translate(new Vector3(direction * speed * Time.deltaTime, 0), Space.World);
         transform.rotation = Quaternion.Euler(0, 0, speed * Time.deltaTime);
         
     }

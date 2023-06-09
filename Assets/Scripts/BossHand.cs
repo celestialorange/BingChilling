@@ -65,13 +65,13 @@ public class BossHand : MonoBehaviour
             health -= damageAmount;
         }        
     }
-    private void OnTriggerEnter2D(Collider2D collision)
-    { 
-        if (collision.gameObject.CompareTag("Bullet"))
-        {
-            health -= damageAmount;
-        }
-    }
+    //private void OnTriggerEnter2D(Collider2D collision)
+    //{ 
+    //    if (collision.gameObject.CompareTag("Bullet"))
+    //    {
+    //        health -= damageAmount;
+    //    }
+    //}
 
   IEnumerator Move()
     {
@@ -83,7 +83,8 @@ public class BossHand : MonoBehaviour
             transform.Translate(Vector3.left * moveSpeed * Time.deltaTime, Space.World);
             rotateTime += rotateSpeed * Time.deltaTime;
             transform.rotation = Quaternion.Lerp(Quaternion.identity, Quaternion.Euler(0, 0, 90), rotateTime);
-            if (Mathf.Abs(targetPosition.position.x - transform.position.x) <= 0.1f)
+            if (CheckWhetherReachTarget())
+            //if (Mathf.Abs(targetPosition.position.x - transform.position.x) <= 0.1f)
             {
                 isMoved = true;
                 Debug.Log("1" );
@@ -100,15 +101,38 @@ public class BossHand : MonoBehaviour
             transform.Translate(Vector3.right * moveSpeed * 2 * Time.deltaTime, Space.World);
             rotateTime -= rotateSpeed * Time.deltaTime;
             transform.rotation = Quaternion.Lerp(Quaternion.Euler(0, 0, 90), Quaternion.identity, rotateTime);
-            if (Mathf.Abs(originPosition.position.x - transform.position.x) <= 0.1f)
+            if(CheckWhetherReachTarget())
+            //if (Mathf.Abs(originPosition.position.x - transform.position.x) <= 0.1f)
             {
                 isMoved = false;
                 Debug.Log("2" );
-
+                break;
             }
         }
     
         
+    }
+
+    public bool CheckWhetherReachTarget()
+    {
+        //left
+        if (!isMoved)
+        {
+            if (transform.position.x < targetPosition.position.x)
+            {
+                return true;
+            }
+        }
+        else
+        {
+            if (transform.position.x > originPosition.position.x)
+            {
+                return true;
+            }
+
+        }
+
+        return false;
     }
 
 }
