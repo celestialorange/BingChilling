@@ -101,9 +101,20 @@ public class GameManager : MonoBehaviour
 
     public void CommonDead()
     {
-        player.SetActive(false);
-        IsPlayerDead = true;
-        soundFXManager.PlaySound(SoundType.KO);
+        if (!IsPlayerDead)
+        {
+            player.SetActive(false);
+            IsPlayerDead = true;
+            soundFXManager.PlaySound(SoundType.KO);
+            soundFXManager.BGMSource.Stop();
+            soundFXManager.BGMSource.loop = false;
+            Invoke("PlayKOBgm", soundFXManager.KOSound.length);
+        }
+    }
+
+    void PlayKOBgm()
+    {
+        soundFXManager.PlayBGM(BGMType.KO);
     }
 
     //void CheckpointDefenition()

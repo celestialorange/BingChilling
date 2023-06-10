@@ -14,15 +14,27 @@ public class PlayerControl : MonoBehaviour
     public LayerMask ground;
 
     public bool isGround, isJump;
+    public bool isPlayerTrapped;
 
     bool jumpPressed;
     int jumpCount;
+
+    public GameManager gameManager;
+
+    //Fire Ice Cream Bullets
+    public bool CouldFireIceCreamBullets;
+    public Transform FirePos;
+    public GameObject IceCreamBullet;
+
+    public SoundFXManager soundFXManager;
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         col2d = GetComponent<Collider2D>();
         anim = GetComponent<Animator>();
+        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        isPlayerTrapped = false;
     }
 
     void Update()
@@ -31,13 +43,26 @@ public class PlayerControl : MonoBehaviour
         {
             jumpPressed = true;
         }
+        if(Input.GetButtonDown("Fire1") && gameManager.IceCreamBulletCount >= 1 && CouldFireIceCreamBullets)
+        {
+            Fire();
+        }
+        if (gameManager.isBulletIceCreamCreated)
+        {
+            CouldFireIceCreamBullets = true;
+        }
+
     }
 
     void FixedUpdate()
     {
         isGround = Physics2D.OverlapCircle(groundCheck.position, 0.1f, ground);
-        GroundMovement();
-        Jump();
+        if (!isPlayerTrapped)
+        {
+            GroundMovement();
+            Jump();
+        }
+        
     }
 
     void GroundMovement()
@@ -79,6 +104,13 @@ public class PlayerControl : MonoBehaviour
         {
 
         }
+
+       
+    }
+    void Fire()
+    {
+        Instantiate(IceCreamBullet, FirePos.position, Quaternion.identity);
+        gameManager.IceCreamBulletCount -= 1;
     }
 
 }

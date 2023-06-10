@@ -9,6 +9,7 @@ public class CanvasManager : MonoBehaviour
 	public GameObject HealthBar;
 	public GameManager gameManager;
 	public GameObject RestartButton;
+	public GameObject TryAgainButton;
 	public string thisLevel;
 	public List<Checkpoint> checkpoints;
 	public RespawnManager respawnManager;
@@ -20,6 +21,17 @@ public class CanvasManager : MonoBehaviour
 	//public IceCreamSpawn iceCreamSpawn;
 	public IceCreamCount iceCreamCount;
 	public GameObject iceCreamCountMeter;
+	public SoundFXManager soundFXManager;
+	public JohnCenaControl johnCenaControl;
+	
+
+	public Image JohnCenaIceCream;
+	public Transform JCICDefaultPos;
+	public Transform JCICTargetPos;
+	private float lerpTime;
+	public float lerpSpeed;
+
+	private bool ClearThemePlayed;
 
 	// Start is called before the first frame update
 	void Start()
@@ -27,8 +39,10 @@ public class CanvasManager : MonoBehaviour
 		HealthBar.SetActive(false);
 		TrapBar.SetActive(false);
 		RestartButton.SetActive(false);
+		TryAgainButton.SetActive(false);
 		BossHandHealth.SetActive(false);
 		RestartButton.GetComponent<Button>().onClick.AddListener(OnRestartButtonClick);
+		TryAgainButton.GetComponent<Button>().onClick.AddListener(OnRestartButtonClick);
 		respawnManager = GameObject.Find("RespawnManager").GetComponent<RespawnManager>();
 		playerControl = GameObject.FindGameObjectWithTag("Player").GetComponent<NewPlayerControl>();
 	}
@@ -68,6 +82,20 @@ public class CanvasManager : MonoBehaviour
 			iceCreamCount.ShouldIceCreamCountEnabled = true;
 			iceCreamCountMeter.SetActive(true);
 			//BossHandHealth.GetComponent<Image>().fillAmount = (bossHand.health / bossHand.defaultHealth);
+		}
+
+		if (johnCenaControl.isGameTrulyCleared && !ClearThemePlayed)
+		{
+            soundFXManager.PlaySound(SoundType.WoyouBingchilling);
+            lerpTime += lerpSpeed * Time.deltaTime;
+			JohnCenaIceCream.rectTransform.position = Vector3.Lerp(JCICDefaultPos.position, JCICTargetPos.position, lerpTime);
+			if(JohnCenaIceCream.rectTransform.position == JCICTargetPos.position)
+			{
+                soundFXManager.BGMSource.loop = false;
+                soundFXManager.PlayBGM(BGMType.Clear);
+				ClearThemePlayed = true;
+				TryAgainButton.SetActive(true);
+			}
 		}
 		BossHandHealth.GetComponent<Image>().fillAmount = bossHand.currentHealth / bossHand.defaultHealth;
         TrapBar.GetComponent<Image>().fillAmount = gameManager.FreeFromTrapCurrentAmount / gameManager.FreeFromTrapMaxAmount;

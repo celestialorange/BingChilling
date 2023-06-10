@@ -26,7 +26,7 @@ public class IceCreamBullet : MonoBehaviour
             return;
         }
         transform.Translate(new Vector3(direction * speed * Time.deltaTime, 0), Space.World);
-        transform.rotation = Quaternion.Euler(0, 0, speed * Time.deltaTime);
+        //transform.rotation = Quaternion.Euler(0, 0, speed * Time.deltaTime);
         
     }
 
@@ -35,14 +35,14 @@ public class IceCreamBullet : MonoBehaviour
         Destroy(gameObject);
     }
 
-    //private void OnCollisionEnter2D(Collision2D collision)
-    //{
-    //    if (collision.gameObject.CompareTag("Hand"))
-    //    {
-    //        bossHand.health -= bossHand.damageAmount;
-    //       Destroy(gameObject);
-    //    }
-    // }
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+       if (collision.gameObject.CompareTag("Hand"))
+        {
+          //bossHand.health -= bossHand.damageAmount;
+          Destroy(gameObject);
+       }
+     }
 
     //private void OnTriggerEnter2D(Collider2D collision)
     //{

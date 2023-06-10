@@ -33,8 +33,16 @@ public class IceCreamSpawn : MonoBehaviour
     {
         while (ShouldSpawn)
         {
-            yield return new WaitForSeconds(0.1f);
+            yield return new WaitForSeconds(0.2f);
             Instantiate(IceCreamCollective, new Vector3(Random.Range(-6 + SpawnPoint.transform.position.x, 6 + SpawnPoint.transform.position.x), SpawnPoint.transform.position.y, 0), Quaternion.identity);
+            if (gameManager.IsPlayerDead)
+            {
+                yield break;
+            }
+            else if (GameObject.Find("BossHand") == null)
+            {
+                yield break;
+            }
         }
     }
 

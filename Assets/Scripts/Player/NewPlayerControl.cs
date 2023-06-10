@@ -8,6 +8,8 @@ public class NewPlayerControl : MonoBehaviour
 
     //Trap Detection
     public bool isPlayerTrapped;
+    public bool isCarCrash;
+    public bool isGameCleared;
     //Fall Detection
     public GameObject fallAnchor;
 
@@ -34,6 +36,8 @@ public class NewPlayerControl : MonoBehaviour
     public GameObject IceCreamBullet;
     //public IceCreamBullet iceCreamBullet;
 
+    public SoundFXManager soundFXManager;
+
 
     void Start()
     {
@@ -41,11 +45,14 @@ public class NewPlayerControl : MonoBehaviour
         jumpCount = maxJumpCount;
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         FirePos = transform.GetChild(1);
+        isPlayerTrapped = false;
+        isCarCrash = false;
+        isGameCleared = false;
     }
 
     void Update()
     {
-        if (!isPlayerTrapped)
+        if (!isPlayerTrapped && !isCarCrash && !isGameCleared)
         {
             MovePlayer();
         }
@@ -95,12 +102,14 @@ public class NewPlayerControl : MonoBehaviour
                 {
                     Jump();
                     jumpCount--;
+                    soundFXManager.PlaySound(SoundType.Jump);
                 }
             }
             else
             {
                 Jump();
                 jumpCount--;
+                soundFXManager.PlaySound(SoundType.Jump);
             }
         }
 
@@ -152,7 +161,8 @@ public class NewPlayerControl : MonoBehaviour
     }
     void Fire()
     {
-        Instantiate(IceCreamBullet, FirePos.position, Quaternion.identity);
+        Instantiate(IceCreamBullet, FirePos.position, Quaternion.Euler(0,0, transform.localScale.x * 90));
         gameManager.IceCreamBulletCount -= 1;
+        soundFXManager.PlaySound(SoundType.IceCreamFire);
     }
 }

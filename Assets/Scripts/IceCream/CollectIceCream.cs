@@ -7,6 +7,7 @@ public class CollectIceCream : MonoBehaviour
 {
     private GameManager gameManager;
     private Vector2 DefaultPosition;
+    public SoundFXManager soundFXManager;
     // Start is called before the first frame update
     void Start()
     {
@@ -32,5 +33,9 @@ public class CollectIceCream : MonoBehaviour
             Destroy(this.gameObject);
             
         }   
+    }
+    private void OnDestroy()
+    {
+        soundFXManager.PlaySound(SoundType.IceCreamCollected);
     }
 }

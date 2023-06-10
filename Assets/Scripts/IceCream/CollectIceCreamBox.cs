@@ -6,6 +6,7 @@ public class CollectIceCreamBox : MonoBehaviour
 {
     public GameManager gameManager;
     public float MeltRecoverAmount;
+    public SoundFXManager soundFXManager;
     
     // Start is called before the first frame update
     void Start()
@@ -26,5 +27,13 @@ public class CollectIceCreamBox : MonoBehaviour
             Destroy(gameObject);
             gameManager.IceCreamRemaining += MeltRecoverAmount;
         }
+    }
+    private void OnDestroy()
+    {
+        if (gameObject.CompareTag("LargeIceCreamBox"))
+        {
+            soundFXManager.PlaySound(SoundType.LargeIceCreamBoxCollected);
+        }
+        else soundFXManager.PlaySound(SoundType.IceCreamBoxCollected);
     }
 }

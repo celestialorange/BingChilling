@@ -6,6 +6,7 @@ public class SpriteChange : MonoBehaviour
 {
     public TextChangeManager textChangeManager;
     public Sprite BingChilingText;
+    public SoundFXManager soundFXManager;
     // Start is called before the first frame update
     void Start()
     {
@@ -21,9 +22,10 @@ public class SpriteChange : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D other)
     {
-        if (other.gameObject.CompareTag("Player"))
+        if (other.gameObject.CompareTag("Player") && other.transform.position.y > gameObject.transform.position.y)
         {
            GetComponent<SpriteRenderer>().sprite = BingChilingText;
+            soundFXManager.PlaySound(SoundType.Bingchilling);
         }
     }
 }

@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class BossHand : MonoBehaviour
 {
+    public GameManager gameManager;
     public float health;
     public float defaultHealth;
     public bool isInvincible;
@@ -20,6 +21,11 @@ public class BossHand : MonoBehaviour
     private float attackTimer;
     public float attackWaitTime;
     private bool shouldTimerStart;
+    private bool isCollided;
+
+    public SoundFXManager soundFXManager;
+
+    public JohnCenaControl johnCenaControl;
     // Start is called before the first frame update
     void Start()
     {
@@ -30,6 +36,8 @@ public class BossHand : MonoBehaviour
         isInvincible = true;
         localPosition = gameObject.GetComponent<Transform>();
         //targetPosition = new Vector3(localPosition.position.x - 10, localPosition.position.y);
+        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        isCollided = false;
     }
 
     // Update is called once per frame
@@ -59,19 +67,28 @@ public class BossHand : MonoBehaviour
         {
             isInvincible = false;
             shouldTimerStart = true;
+            soundFXManager.PlayBGM(BGMType.Battle);
         }
+        if (collision.gameObject.CompareTag("Player") && !isCollided)
+        {
+            gameManager.IceCreamMeltSpeed *= 2;
+            isCollided = true;
+            Invoke("ReturntoNormalState", 1f);
+            Debug.Log(gameManager.IceCreamMeltSpeed.ToString());
+        }
+/*        if (collision.gameObject.CompareTag("Bullet"))
+        {
+            health -= damageAmount;
+        }      */  
+    }
+    private void OnTriggerEnter2D(Collider2D collision)
+    { 
         if (collision.gameObject.CompareTag("Bullet"))
         {
             health -= damageAmount;
-        }        
+            soundFXManager.PlaySound(SoundType.Hit);
+        }
     }
-    //private void OnTriggerEnter2D(Collider2D collision)
-    //{ 
-    //    if (collision.gameObject.CompareTag("Bullet"))
-    //    {
-    //        health -= damageAmount;
-    //    }
-    //}
 
   IEnumerator Move()
     {
@@ -113,6 +130,20 @@ public class BossHand : MonoBehaviour
         
     }
 
+    private void OnDestroy()
+    {
+        gameManager.IceCreamMeltSpeed = 0;
+        johnCenaControl.isGameCleared = true;
+        soundFXManager.PlayBGM(BGMType.Normal);
+    }
+
+    void ReturnToNormalState()
+    {
+        gameManager.IceCreamMeltSpeed /= 2;
+        isCollided = false;
+        Debug.Log(gameManager.IceCreamMeltSpeed.ToString()); 
+    }
+
     public bool CheckWhetherReachTarget()
     {
         //left
@@ -134,5 +165,7 @@ public class BossHand : MonoBehaviour
 
         return false;
     }
+
+
 
 }

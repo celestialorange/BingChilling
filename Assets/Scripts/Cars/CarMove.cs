@@ -22,6 +22,8 @@ public class CarMove : MonoBehaviour
 
     private bool isCarTrigger = false;
 
+    public SoundFXManager soundFXManager;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -73,13 +75,15 @@ public class CarMove : MonoBehaviour
             if (switchLayer != -1)
             {
                 player.layer = switchLayer;
-                playerControl.isPlayerTrapped = true;
+                playerControl.isCarCrash = true;
                 player.transform.position = new Vector3(currentPosition.x, currentPosition.y, 0.05f);
                 player.GetComponent<Rigidbody2D>().AddForce(knockbackForce, ForceMode2D.Impulse);
                 player.GetComponent<Rigidbody2D>().freezeRotation = false;
                 player.transform.rotation = Quaternion.Euler(0, 0, 30f);
                 playerCamera.Follow = null;
                 ShouldCarMove = false;
+                soundFXManager.PlaySound(SoundType.Hit);
+                soundFXManager.BGMSource.Stop();
                 gameManager.PlayerCrash(2.0f);
             }
             else
@@ -93,6 +97,7 @@ public class CarMove : MonoBehaviour
             iceCreamSpawn.ShouldSpawn = true;
             //StartCoroutine(iceCreamSpawn.SpawnIceCream(0.1f));
             iceCreamSpawn.IceCreamSpawnNow();
+            soundFXManager.PlaySound(SoundType.CarCrash);
             Destroy(gameObject);
         }
 

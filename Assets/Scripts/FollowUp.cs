@@ -9,6 +9,7 @@ public class FollowUp : MonoBehaviour
     public float moveSpeed;
     public Transform currentPosition;
     public GameManager gameManager;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -30,10 +31,9 @@ public class FollowUp : MonoBehaviour
             gameObject.transform.position = new Vector3(player.transform.position.x, currentPosition.position.y + moveSpeed * Time.deltaTime);
         }
 
-        if(player.transform.position.y < gameObject.transform.position.y - 15)
+        if(player.transform.position.y < gameObject.transform.position.y - 13)
         {
-            player.SetActive(false);
-            gameManager.IsPlayerDead = true;
+            gameManager.CommonDead();
         }
     }
 }

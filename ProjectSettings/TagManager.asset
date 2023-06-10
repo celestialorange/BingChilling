@@ -7,6 +7,7 @@ TagManager:
   - PlayerCamera
   - Hand
   - Bullet
+  - LargeIceCreamBox
   layers:
   - Default
   - TransparentFX
