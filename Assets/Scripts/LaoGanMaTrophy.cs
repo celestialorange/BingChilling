@@ -10,6 +10,8 @@ public class LaoGanMaTrophy : MonoBehaviour
     public float rSpeed;
     private float rTime = 0f;
     private int direction = 1;
+
+    public SoundFXManager sound;
     // Start is called before the first frame update
     void Start()
     {
@@ -41,5 +43,9 @@ public class LaoGanMaTrophy : MonoBehaviour
             Destroy(gameObject);
             GameManager.IsPlayerGotLaoGanMa = true;
         }
+    }
+    private void OnDestroy()
+    {
+        sound.PlaySound(SoundType.LaoGanMa);
     }
 }

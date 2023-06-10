@@ -7,6 +7,7 @@ using UnityEngine.SceneManagement;
 public class CanvasManager : MonoBehaviour
 {
 	public GameObject HealthBar;
+	public GameObject HealthBar2;
 	public GameManager gameManager;
 	public GameObject RestartButton;
 	public GameObject TryAgainButton;
@@ -37,6 +38,7 @@ public class CanvasManager : MonoBehaviour
 	void Start()
 	{
 		HealthBar.SetActive(false);
+		HealthBar2.SetActive(false);
 		TrapBar.SetActive(false);
 		RestartButton.SetActive(false);
 		TryAgainButton.SetActive(false);
@@ -53,9 +55,11 @@ public class CanvasManager : MonoBehaviour
 		if (gameManager.IceCreamEnabled)
 		{
 			HealthBar.SetActive(true);
+			HealthBar2.SetActive(true);
 		}
 		//Dynamically Update the Health Amount.
 		HealthBar.GetComponent<Image>().fillAmount = gameManager.IceCreamRemaining / gameManager.IceCreamMax;
+		HealthBar2.GetComponent<Image>().fillAmount = (gameManager.IceCreamRemaining - gameManager.IceCreamMax) / gameManager.IceCreamMax;
 
 		if(gameManager.IsPlayerDead)
 		{

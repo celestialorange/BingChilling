@@ -8,6 +8,7 @@ public class Level3Intro : MonoBehaviour
     public CinemachineVirtualCamera playerCamera;
     public GameObject player;
     public RespawnManager respawnManager;
+    public FollowUp followUp;
     // Start is called before the first frame update
     void Start()
     {
@@ -33,6 +34,7 @@ public class Level3Intro : MonoBehaviour
         {
             gameObject.GetComponent<Collider2D>().isTrigger = false;
             respawnManager.PlayerTouchedRespawnPoint(gameObject.transform);
+            followUp.isYaxisShouldMove = false;
         }
     }
 }

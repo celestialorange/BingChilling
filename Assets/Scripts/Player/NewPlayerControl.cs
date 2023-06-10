@@ -102,14 +102,14 @@ public class NewPlayerControl : MonoBehaviour
                 {
                     Jump();
                     jumpCount--;
-                    soundFXManager.PlaySound(SoundType.Jump);
+                    soundFXManager.PlayPlayerSound(SoundType.Jump);
                 }
             }
             else
             {
                 Jump();
                 jumpCount--;
-                soundFXManager.PlaySound(SoundType.Jump);
+                soundFXManager.PlayPlayerSound(SoundType.Jump);
             }
         }
 

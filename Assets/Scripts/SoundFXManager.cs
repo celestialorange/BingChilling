@@ -15,7 +15,8 @@ public enum SoundType
     LargeIceCreamBoxCollected,
     Jackpot,
     Bingchilling,
-    WoyouBingchilling
+    WoyouBingchilling,
+    LaoGanMa
 }
 
 public enum BGMType
@@ -42,12 +43,14 @@ public class SoundFXManager : MonoBehaviour
     public AudioClip LargeIceCreamBoxCollected;
     public AudioClip BingChilling;
     public AudioClip WoYouBingChilling;
+    public AudioClip LaoGanMa;
     [Header("BGM")]
     public AudioClip NormalBgm;
     public AudioClip BattleBgm;
     public AudioClip ClearBgm;
     public AudioClip KOBgm;
     [Header("Sources")]
+    public AudioSource PlayerFXSource;
     public AudioSource FXSource;
     public AudioSource BGMSource;
 
@@ -56,6 +59,18 @@ public class SoundFXManager : MonoBehaviour
     {
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         BGMSource.loop = true;
+    }
+
+    public void PlayPlayerSound(SoundType soundType)
+    {
+        switch (soundType)
+        {
+            case SoundType.Jump:
+                PlayerFXSource.clip = JumpSound;
+                break;
+        }
+        PlayerFXSource.time = 0;
+        PlayerFXSource.Play();
     }
 
     public void PlaySound(SoundType soundType)
@@ -73,9 +88,6 @@ public class SoundFXManager : MonoBehaviour
                 break;
             case SoundType.Hit:
                 FXSource.clip = HitSound;
-                break;
-            case SoundType.Jump:
-                FXSource.clip = JumpSound;
                 break;
             case SoundType.IceCreamFire:
                 FXSource.clip = IceCreamFire;
@@ -97,6 +109,9 @@ public class SoundFXManager : MonoBehaviour
                 break;
             case SoundType.WoyouBingchilling:
                 FXSource.clip = WoYouBingChilling;
+                break;
+            case SoundType.LaoGanMa:
+                FXSource.clip = LaoGanMa;
                 break;
         }
         FXSource.time = 0;
