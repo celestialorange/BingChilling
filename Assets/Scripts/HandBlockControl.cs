@@ -7,23 +7,30 @@ public class HandBlockControl : MonoBehaviour
     public IceCreamSpawn iceCreamSpawn;
     public Color defaultColor;
     public GameObject player;
+    public float fadeInSpeed;
+    private bool isFadeIn;
     // Start is called before the first frame update
     void Start()
     {
+        isFadeIn = false;
         defaultColor = gameObject.GetComponent<SpriteRenderer>().color;
     }
     // Update is called once per frame
     void Update()
     {
-        
+        if (isFadeIn)
+        {
+            float fadeIn = fadeInSpeed * Time.deltaTime;
+            gameObject.GetComponent<BoxCollider2D>().isTrigger = false;
+            gameObject.GetComponent<SpriteRenderer>().color = new Color(defaultColor.r, defaultColor.g, defaultColor.b, fadeIn);
+        }
     }
 
     void OnTriggerExit2D(Collider2D other)
     {
         if (other.CompareTag("Player") && player.transform.position.x > gameObject.transform.position.x)
         {
-            gameObject.GetComponent<BoxCollider2D>().isTrigger = false;
-            gameObject.GetComponent<SpriteRenderer>().color = new Color(defaultColor.r, defaultColor.g, defaultColor.b, 1.0f);
+            isFadeIn = true;
         }
     }
     void OnCollisionEnter2D(Collision2D collision2D)

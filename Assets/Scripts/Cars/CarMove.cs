@@ -68,20 +68,31 @@ public class CarMove : MonoBehaviour
         float knockbackDistance = carSpeed * carSpeedRatio;
         Vector2 knockbackForce = new Vector2(-knockbackDistance, 3f);
         Vector3 PositionOnCollision = transform.position;
-        if (collision.rigidbody.gameObject.CompareTag("Player"))
+        if (collision.rigidbody.gameObject.CompareTag("Player") && ShouldCarMove)
         {
             GameObject player = collision.rigidbody.gameObject;
             Vector3 currentPosition = player.transform.position;
             if (switchLayer != -1)
             {
+                int direction = 0;
+                if(gameObject.transform.localScale.x < 0)
+                {
+                    direction = 1;
+                }
+                else if(gameObject.transform.localScale.x > 0)
+                {
+                    direction = -1;
+                }
                 player.layer = switchLayer;
+                player.GetComponent<SpriteRenderer>().sortingOrder = 5;
                 playerControl.isCarCrash = true;
                 player.transform.position = new Vector3(currentPosition.x, currentPosition.y, 0.05f);
                 player.GetComponent<Rigidbody2D>().AddForce(knockbackForce, ForceMode2D.Impulse);
                 player.GetComponent<Rigidbody2D>().freezeRotation = false;
-                player.transform.rotation = Quaternion.Euler(0, 0, 30f);
+                player.transform.rotation = Quaternion.Euler(0, 0,  direction * 30);
                 playerCamera.Follow = null;
                 ShouldCarMove = false;
+                gameObject.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
                 soundFXManager.PlaySound(SoundType.Hit);
                 soundFXManager.BGMSource.Stop();
                 gameManager.PlayerCrash(2.0f);

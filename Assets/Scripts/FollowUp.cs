@@ -35,6 +35,11 @@ public class FollowUp : MonoBehaviour
         {
             gameManager.CommonDead();
         }
+
+        if (gameManager.IsPlayerDead)
+        {
+            moveSpeed = 0;
+        }
     }
 }
 
